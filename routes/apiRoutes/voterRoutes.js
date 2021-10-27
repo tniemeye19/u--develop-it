@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../../db/connection');
 const inputCheck = require('../../utils/inputCheck');
 
-// GET all voters
+// GET all voters alphabetized by last_name
 router.get('/voters', (req, res) => {
     const sql = `SELECT * FROM voters ORDER BY last_name`;
 
@@ -19,7 +19,7 @@ router.get('/voters', (req, res) => {
     });
 });
 
-// GET single voters
+// GET single voter
 router.get('/voter/:id', (req, res) => {
     const sql = `SELECT * FROM voters WHERE id = ?`;
     const params = [req.params.id];
@@ -36,7 +36,7 @@ router.get('/voter/:id', (req, res) => {
     });
 });
 
-// POST new voter
+// CREATE new voter
 router.post('/voter', ({ body }, res) => {
     // Data validataion
     const errors = inputCheck(body, 'first_name', 'last_name', 'email');
@@ -60,7 +60,7 @@ router.post('/voter', ({ body }, res) => {
     });
 });
 
-// PUT route
+// UPDATE a voters email
 router.put('/voter/:id', (req, res) => {
     // Data validation
     const errors = inputCheck(req.body, 'email');
